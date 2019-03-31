@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"
+        integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"
+        integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="row mt-5">
+        <div class="col-5">
+        </div>
+        <div class="col-2 bg-dark text-white text-center">
+            <h5 class="mt-2">終極密碼</h5>
+            <div class="form-group">
+                <label for=""></label>
+                <input type="text" class="form-control bg-dark text-white border-0" name="maxmin" id="maxmin"
+                    aria-describedby="maxmin" placeholder="0 ~ 99" disabled>
+            </div>
+            <div class="form-group">
+                <label for=""></label>
+                <input type="text" class="form-control bg-dark text-white border-0" name="ans" id="ans"
+                    aria-describedby="ans" placeholder="" disabled>
+            </div>
+            <div class="row mt-2">
+                <div class="col">
+                    <button type="button" class="btn btn-block btn-outline-light rounded" id="btnrandom"
+                        onclick="startGame()">開始遊戲</button>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-light rounded-circle input_num" id="button" value="1"
+                        disabled="disabled">1</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-light rounded-circle input_num" id="button" value="2"
+                        disabled>2</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-light rounded-circle input_num" id="button" value="3"
+                        disabled>3</button>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-light rounded-circle input_num" id="button" value="4"
+                        disabled>4</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-light rounded-circle input_num" id="button" value="5"
+                        disabled>5</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-light rounded-circle input_num" id="button" value="6"
+                        disabled>6</button>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-light rounded-circle input_num" id="button" value="7"
+                        disabled>7</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-light rounded-circle input_num" id="button" value="8"
+                        disabled>8</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-light rounded-circle input_num" id="button" value="9"
+                        disabled>9</button>
+                </div>
+            </div>
+            <div class="row mt-2 mb-2">
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-danger rounded" id="btnclean" onclick="doclear()" disabled>
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-light rounded-circle input_num" id="button" value="0" disabled>0</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-success rounded" id="btncheck" onclick="checked()" disabled>
+                        <i class="fas fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var max_num = 99, min_num = 0, times = 10;
+        var answer="";
+        function startGame() {
+
+            $('button').prop('disabled', false); //開啟按鍵
+            var rdn = Math.floor(Math.random() * 99);
+            answer=rdn;
+            
+            }
+        
+        //按鈕判斷
+        function inputButton() {
+            var input = document.getElementById("ans");
+            var text = this.value;//this 為inputButtons的物件
+            input.value += text;
+        }
+        var inputButttons = document.getElementsByClassName("input_num");
+        for (var i = 0; i < inputButttons.length; i++) {
+
+            inputButttons[i].onclick = inputButton; //每一個inputBs的onclick都有 inputB的方式
+        }
+        function checked(){
+            var ans= document.getElementById("ans");
+            var thisRoundinput =ans.value;
+            var target = document.getElementById("maxmin");
+            if(thisRoundinput==answer){
+                alert("你猜對了!");
+                startGame();
+                doclear();
+                target.value=" ";
+            }
+            else if(thisRoundinput>answer && thisRoundinput<=max_num){             
+                target.value=min_num+"~"+thisRoundinput;
+                max_num=thisRoundinput;              
+            }
+            else if(thisRoundinput<answer && thisRoundinput>=min_num){
+                target.value=thisRoundinput+"~"+max_num;
+                min_num=thisRoundinput;
+            }
+            else{
+                alert("請輸入範圍內的數值!!!");
+            }
+            ans.value=" ";
+        }
+        function doclear(){
+            var ans= document.getElementById("ans");
+            ans.value=" ";
+        }
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
